@@ -1,0 +1,41 @@
+<div class="container">
+    <h1>Search Results</h1>
+    <div class="container main">
+
+        <%= @data.each do |item| %>
+            <div class="row well">
+                <div class="col-sm-2">
+                    <h3>Prezzo: </h3>
+                    <%= item["saleTotal"] %>
+                </div>
+                <div class="col-sm-2">
+                    <h3>Andata: </h3>
+                    <br>
+                    </br>
+                    <h3>Ritorno: </h3>
+                </div>
+                <div class="col-sm-4">
+                    <h3>Partenza: </h3>
+                    <%= item["slice"].first["segment"][0]["leg"][0]["departureTime"] %>
+                    <%= item["slice"].first["segment"][0]["leg"][0]["origin"] %>
+                    <h3></h3>
+                    </br>
+                    <%= item["slice"].last["segment"][0]["leg"][0]["departureTime"] %>
+                    <%= item["slice"].last["segment"][0]["leg"][0]["origin"] %>
+                </div>  
+                <div class="col-sm-4">
+                    <h3>Arrivo: </h3>
+                    <%= item["slice"].first["segment"][0]["leg"][0]["arrivalTime"] %>
+                    <%= item["slice"].first["segment"][0]["leg"][0]["destination"] %>
+                    <h3></h3>
+                    </br>
+                    <%= item["slice"].last["segment"][0]["leg"][0]["arrivalTime"] %>
+                    <%= item["slice"].last["segment"][0]["leg"][0]["destination"] %>
+                </div> 
+                
+                
+            </div>
+        <% end %>
+
+    </div>
+</div>

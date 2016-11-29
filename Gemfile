@@ -23,7 +23,12 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'skyscanner', :require => 'skyscanner'
+gem 'google-api-client'
+
+gem 'iso_country_codes'
+
+gem 'nokogiri'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -1,0 +1,16 @@
+<h1>Home#index</h1>
+<p>Find me in app/views/home/index.html.erb</p>
+
+<%= form_tag(search_path(:params), :method => "get") do %>
+  <%= label_tag(:origin, "Partenza da:") %>
+  <%= text_field_tag(:origin) %>
+  <%= label_tag(:destination, "Arrivo a:") %>
+  <%= text_field_tag(:destination) %>
+  <%= label_tag(:outbound, "Andata:") %>
+  <%= date_field_tag(:outbound) %>
+  <%= label_tag(:inbound, "Ritorno:") %>
+  <%= date_field_tag(:inbound) %>
+  <%= label_tag(:adults, "Passeggeri Adulti:") %>
+  <%= number_field_tag(:adults) %>
+  <%= submit_tag("Search") %>
+<% end %>

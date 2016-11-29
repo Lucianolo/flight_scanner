@@ -1,0 +1,60 @@
+<form action="#" class="clearfix">
+        <section id="js-trip-type" class="search-controls-trip-type multi-city-enabled">
+            <div class="mobile-container">
+                <input type="radio" id="js-is-return-input" name="trip-type" value="return" class="visuallyhidden" tabindex="1">
+                <label for="js-is-return-input" class="return-trip">Andata e ritorno</label>
+                <input type="radio" id="js-one-way-input" name="trip-type" value="oneway" class="visuallyhidden" tabindex="1">
+                <label for="js-one-way-input" class="one-way-trip">Solo andata</label>
+                    <input type="radio" id="js-multi-city-input" name="trip-type" value="multicity" class="visuallyhidden" tabindex="1">
+                    <label for="js-multi-city-input" class="multi-city-trip">Destinazioni multiple</label>
+            </div>
+        </section>
+        <section class="traditional-search clearfix">
+            <div id="js-places" class="search-controls-places clearfix">
+                <div class="origin-place">
+                    <label for="js-origin-input" class="place-label">Da</label>
+                    <input type="text" id="js-origin-input" tabindex="2" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" dir="auto">
+                    <label class="nearby-alts sc-checkbox">
+                        <input type="checkbox" id="js-outbound-alts" class="visuallyhidden">
+                        Includi aeroporti vicini
+                    </label>
+                </div>
+                <button type="button" id="js-places-toggle" class="swap-button" title="Fai clic qui per scambiare le destinazioni">
+                    <span class="visuallyhidden">Fai clic qui per scambiare le destinazioni</span>
+                </button>
+                <div class="destination-place">
+                    <label for="js-destination-input" class="place-label">A</label>
+                    <input type="text" id="js-destination-input" placeholder="Inserire un paese, una città o un aeroporto" tabindex="2" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" dir="auto">
+                    <label class="nearby-alts sc-checkbox">
+                        <input type="checkbox" id="js-inbound-alts" class="visuallyhidden">
+                        Includi aeroporti vicini
+                    </label>
+                </div>
+            </div>
+            <div id="js-dates" class="search-controls-dates">
+                <div class="depart">
+                    <label for="js-depart-input">Partenza</label>
+                    <input type="text" id="js-depart-input" tabindex="3" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly>
+                </div>
+                <div class="return ">
+                    <label for="js-return-input">Ritorno</label>
+                    <input type="text" id="js-return-input" tabindex="3" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly>
+                </div>
+                <span id="js-depart-summary" class="date-summary"></span>
+                <span id="js-return-summary" class="date-summary"></span>
+            </div>
+            <div id="js-pax-cabin-class" class="search-controls-pax-cabin-class">
+                <label for="js-trad-cabin-class-travellers-toggle">Classe &amp; Viaggiatori</label>
+                <button type="button" id="js-trad-cabin-class-travellers-toggle" class="cabin-class-travellers-trigger" tabindex="1">
+                    <span class="down-arrow">▼</span>
+                    <span class="adult-icon"></span>
+                </button>
+            </div>
+            <label class="sc-checkbox prefer-directs">
+                <input type="checkbox" id="js-prefer-directs" class="visuallyhidden" tabindex="1"> Solo voli diretti
+            </label>
+                    <button class="js-search-button bpk-button" type="button" tabindex="1">
+                        Cerca voli <span class="bpk-icon" role="presentation" aria-hidden="true"></span>
+                    </button>
+        </section>
+    </form>
