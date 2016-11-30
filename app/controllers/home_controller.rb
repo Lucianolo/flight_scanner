@@ -7,19 +7,30 @@ require 'uri'
 
 class HomeController < ApplicationController
   def index
+    if session[:id] == 10
+      @codes = to_code.keys
+    else
+      redirect_to login_index_path
+    end
   end
   
   def search
     
     
     apiKey = "YOUR API KEY"
-    originPlace = to_code(params[:origin])
-    destinationPlace = to_code(params[:destination])
+    originPlace = to_code[params[:origin]]
+    destinationPlace = to_code[params[:destination]]
     
     
     outboundPartialDate = params[:outbound]
     inboundPartialDate = params[:inbound]
     adults = params[:adults]
+    val = params[:value]
+    if val!= ""
+      @value = (val.to_i)/100.0
+    else
+      @value = 0
+    end
     
     @payload = 
 
@@ -62,86 +73,35 @@ class HomeController < ApplicationController
     
     parsed = JSON.parse(res.body)
     
-    @data = parsed["trips"]["tripOption"]
-   
+    data_temp = parsed["trips"]
+    
+    @carriers = {}
+    @airports = {}
     
     
-  
-  
-  
-=begin  
-  uri = URI 'https://www.skyscanner.it/'
-
-  form_page  = agent.get "https://www.skyscanner.it/"
-  
-  #pp form_page
-  #res = form_page.search('form')
-  form = form_page.form_with(:class => "clearfix")
-  pp form
-  form.fields.each { |f| puts f.name }
-  puts form.to_s
-=end  
-  @resp = ""
-
-
-=begin    
-    post_params = { 
-    :apiKey => "sp963399441614999385444677643713",
-    :country => "IT",
-    :currency => "EUR",
-    :locale => "it-IT",
-    :adults => 1,
-    :children => 0,
-    :infants => 0,
-    :originplace => params[:origin],
-    :destinationplace => params[:destination],
-    :outbounddate => params[:outbound],
-    :inbounddate => params[:inbound],
-    :locationschema => 'Default',
-    :cabinclass => 'Economy',
-    :groupPricing => true
-  }
-
-  
-  sessionkey_request = Net::HTTP.post_form(URI.parse('http://partners.api.skyscanner.net/apiservices/pricing/v1.0'), post_params )
-  get_data= "http://partners.api.skyscanner.net/apiservices/pricing/v1.0/?apiKey=#{post_params[:apiKey]}"
-  puts sessionkey_request.inspect
-  temp = Net::HTTP.get_response(URI.parse(get_data)).body
-  
-  
     
+    puts data_temp["data"]
+    puts data_temp["data"].empty?
     
-    # ENDPOINTS : 
-    # Skyscanner::Connection.browse_dates
-    # Skyscanner::Connection.browse_grid
-    # Skyscanner::Connection.browse_routes
-    # Skyscanner::Connection.browse_quotes
-    
-    
-    # CONFIGURATION :
-    
-    Skyscanner::Connection.apikey = "sp963399441614999385444677643713"
-    Skyscanner::Connection.protocol = :http
-    #Skyscanner::Connection.response_format = 'json'
-    
-    # Skyscanner::Connection.url = partners.api.skyscanner.net/apiservices/
-    
-    # API CALL :
-    
-    @resp = Skyscanner::Connection.browse_quotes({ :country => "IT", :currency => "EUR", :locale => "it-IT", :originPlace => originPlace, :destinationPlace => destinationPlace, :outboundPartialDate => outboundPartialDate, :inboundPartialDate => inboundPartialDate })
-    
-    status = @resp[:status]
-    @resp = eval(@resp[:body])[:Quotes]
-    puts @resp
-=end
-
-
+    if(data_temp["data"].keys.count > 1)
+      data_temp["data"]["carrier"].each do |carrier|
+        @carriers[carrier["code"]] = carrier["name"]
+      end
+      data_temp["data"]["airport"].each do |airport|
+        @airports[airport["code"]] = airport["name"]
+      end
+      @data = data_temp["tripOption"]
+      
+      @websites = carrier_websites
+    else
+      @empty = true
+    end
   end
   
 
 private 
 
-  def to_code(city)
+  def to_code
     page = Nokogiri::HTML(open("http://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm"))  
     index = 0
     
@@ -163,7 +123,20 @@ private
         end
       end
     end
-    return codes[city]
+    return codes
+  end
+  
+  def carrier_websites
+    page = Nokogiri::HTML(open("https://www.onetravel.com/travel/travelcodes.asp"))  
+    websites = {}
+    page.search('.airlineCode').each do |line|
+      line.search('ul li').each do |item|
+        code = item.search('span').text
+        website = "http://"+item.search('a').first["href"][2..-2]
+        websites[code] = website
+      end
+    end
+    return websites
   end
   
 end

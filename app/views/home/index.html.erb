@@ -1,16 +1,43 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
-
-<%= form_tag(search_path(:params), :method => "get") do %>
-  <%= label_tag(:origin, "Partenza da:") %>
-  <%= text_field_tag(:origin) %>
-  <%= label_tag(:destination, "Arrivo a:") %>
-  <%= text_field_tag(:destination) %>
-  <%= label_tag(:outbound, "Andata:") %>
-  <%= date_field_tag(:outbound) %>
-  <%= label_tag(:inbound, "Ritorno:") %>
-  <%= date_field_tag(:inbound) %>
-  <%= label_tag(:adults, "Passeggeri Adulti:") %>
-  <%= number_field_tag(:adults) %>
-  <%= submit_tag("Search") %>
+<h1>Ricerca Voli</h1>
+</br>
+<%= content_tag :div, class: "temp_information", data: {temp: @codes} do %>
 <% end %>
+<%= form_tag(search_path(:params), :method => "get", :class => "form") do %>
+  <div class="form-group">
+  <%= label_tag(:origin, "Partenza da:") %>
+  <%= text_field_tag(:origin,"", :class => "form-control  input") %>
+  </div>
+  <div class="form-group">
+  <%= label_tag(:destination, "Arrivo a:") %>
+  <%= text_field_tag(:destination,"", :class => "form-control input") %>
+  </div>
+  <div class="form-group">
+  <%= label_tag(:outbound, "Andata:") %>
+  <%= date_field_tag(:outbound,"", :class => "form-control") %>
+  </div>
+  <div class="form-group">
+  <%= label_tag(:inbound, "Ritorno:") %>
+  <%= date_field_tag(:inbound,"", :class => "form-control") %>
+  </div>
+  <div class="form-group">
+  <%= label_tag(:adults, "Passeggeri Adulti:") %>
+  <%= number_field_tag(:adults,"", :class => "form-control") %>
+  </div>
+  <div class="form-group">
+  <%= label_tag(:value, "Percentuale di incremento:") %>
+  <%= number_field_tag(:value, 0 , :class => "form-control") %>
+  </div>
+  <%= submit_tag("Search", :class => 'btn btn-primary') %>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    var availableTags = $('.temp_information').data('temp')
+    $( "#origin" ).autocomplete({
+      source: availableTags
+    });
+    $( "#destination" ).autocomplete({
+      source: availableTags
+    });
+  } );
+</script>

@@ -1,41 +1,80 @@
 <div class="container">
-    <h1>Search Results</h1>
-    <div class="container main">
+    <% if !@empty %>
+        <h1>Risultati ricerca</h1>
+        <div class="container main">
 
-        <%= @data.each do |item| %>
-            <div class="row well">
-                <div class="col-sm-2">
-                    <h3>Prezzo: </h3>
-                    <%= item["saleTotal"] %>
+        
+            <% @data.each do |item| %>
+                <div class="row well">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <h3>Prezzo: </h3>
+                                <% price = item["saleTotal"][3..-1].to_f %>
+                                <%= price.to_s + "€" %>
+                            </div>
+                            <div class="col-sm-2">
+                                </br></br>
+                                <h3>Andata: </h3>
+                            </div>
+                            <div class="col-sm-2">
+                                <h3>Partenza: </h3>
+                                <%= item["slice"].first["segment"][0]["leg"][0]["departureTime"] %>
+                                <% airport_code = item["slice"].first["segment"][0]["leg"][0]["origin"] %>
+                                <%= @airports[airport_code]  %>
+                            </div>
+                            <div class="col-sm-2">
+                                <h3>Arrivo: </h3>
+                                <%= item["slice"].first["segment"][0]["leg"][0]["arrivalTime"] %>
+                                <% airport_code = item["slice"].first["segment"][0]["leg"][0]["destination"] %>
+                                <%= @airports[airport_code]  %>
+                            </div>
+                            <div class="col-sm-4">
+                                <h3>Compagnia:</h3>
+                                <% code = item["slice"].first["segment"][0]["flight"]["carrier"] %>
+                                <%= link_to(@carriers[code], @websites[code], target: "_blank") %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <h3>Prezzo + Percentuale</h3>
+                                <% price2 = (price + (@value * price )).round(2) %>
+                                <%= (price2).to_s + "€" %>
+                            </div>
+                            <div class="col-sm-2">
+                                </br>
+                                <h3>Ritorno: </h3>
+                            </div>
+                            <div class="col-sm-2">
+                                </br></br>
+                                <%= item["slice"].last["segment"][0]["leg"][0]["departureTime"] %>
+                                <% airport_code = item["slice"].last["segment"][0]["leg"][0]["origin"] %>
+                                <%= @airports[airport_code]  %>
+                            </div>  
+                            <div class="col-sm-2">
+                                </br></br>
+                                <%= item["slice"].last["segment"][0]["leg"][0]["arrivalTime"] %>
+                                <% airport_code = item["slice"].last["segment"][0]["leg"][0]["origin"] %>
+                                <%= @airports[airport_code]  %>
+                            </div> 
+                            <div class="col-sm-4">
+                                <h3>Compagnia:</h3>
+                                <% code = item["slice"].last["segment"][0]["flight"]["carrier"] %>
+                                <%= link_to(@carriers[code], @websites[code], target: "_blank") %>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
                 </div>
-                <div class="col-sm-2">
-                    <h3>Andata: </h3>
-                    <br>
-                    </br>
-                    <h3>Ritorno: </h3>
-                </div>
-                <div class="col-sm-4">
-                    <h3>Partenza: </h3>
-                    <%= item["slice"].first["segment"][0]["leg"][0]["departureTime"] %>
-                    <%= item["slice"].first["segment"][0]["leg"][0]["origin"] %>
-                    <h3></h3>
-                    </br>
-                    <%= item["slice"].last["segment"][0]["leg"][0]["departureTime"] %>
-                    <%= item["slice"].last["segment"][0]["leg"][0]["origin"] %>
-                </div>  
-                <div class="col-sm-4">
-                    <h3>Arrivo: </h3>
-                    <%= item["slice"].first["segment"][0]["leg"][0]["arrivalTime"] %>
-                    <%= item["slice"].first["segment"][0]["leg"][0]["destination"] %>
-                    <h3></h3>
-                    </br>
-                    <%= item["slice"].last["segment"][0]["leg"][0]["arrivalTime"] %>
-                    <%= item["slice"].last["segment"][0]["leg"][0]["destination"] %>
-                </div> 
-                
-                
-            </div>
-        <% end %>
+            <% end %>
+        
 
-    </div>
+        </div>
+    <% else %>
+        <div class="jumbotron">
+            <h1>Nessun Risultato</h1>      
+            <p>Nessun volo disponibile per la combinazione percorso/date selezionata.</p>
+        </div>
+    <% end %>
 </div>

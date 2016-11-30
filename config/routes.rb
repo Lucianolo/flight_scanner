@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get 'home/index'
   
   get 'home/search/:params' => 'home#search', as: :search
+  
+  get 'login/index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
