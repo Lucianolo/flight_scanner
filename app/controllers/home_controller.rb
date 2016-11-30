@@ -17,7 +17,7 @@ class HomeController < ApplicationController
   def search
     
     
-    apiKey = "YOUR API KEY"
+    apiKey = "AIzaSyADlb82ZnSIwyE-UtfZSla_Itd8QHj_0Ms"
     originPlace = to_code[params[:origin]]
     destinationPlace = to_code[params[:destination]]
     
