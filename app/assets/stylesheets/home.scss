@@ -29,3 +29,69 @@ body{
 h1{
     
 }
+
+
+
+
+.stops{
+    text-align:center;
+    padding: 0 2%;
+    float:left;
+}
+ul.stop-line {
+    height: 2px;
+    width: 93%;
+    background-color: #a2a4ac;
+    margin: 5px auto;
+    position: relative;
+    padding: 0;
+}
+
+ul.stop-line li{
+    list-style-type: none;
+    content: ' ';
+    width: 21px;
+    height: 12px;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='210' height='120' viewBox='0 0 210 120'%3E%3Cpath d='M13 1.124v9.784c0 .971 1.197 1.419 1.915.822l5.666-4.855c.559-.448.559-1.195 0-1.643L14.915.303C14.197-.369 13 .154 13 1.124z' fill='%23A2A4AC'/%3E%3C/svg%3E");
+    position: absolute;
+    right: -1px;
+    top: -5px;
+}
+
+.items{
+    text-align:center;
+}
+
+.duration{
+    font-size: 13px;
+    line-height: 1.231em;
+}
+
+.no_scali {
+    color: #00bd68;
+}
+
+.scali {
+    color: #ff5452;
+}
+.partenza,
+.arrivo
+{
+    margin: -1em auto;
+    padding: -1em 0;
+}
+.partenza h3,
+.arrivo h3
+{
+    font-size: 15px;
+    line-height: 1.231em;
+}
+
+.price{
+    font-size: 18px;
+    padding-top:2em;
+}
+
+.luogo_scalo{
+    font-size: 13px;
+}

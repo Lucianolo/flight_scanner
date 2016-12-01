@@ -2,7 +2,10 @@
     <% if !@empty %>
         <h1>Risultati ricerca</h1>
         <div class="container main">
-
+            
+            
+            
+            
         
             <% @data.each do |item| %>
             
@@ -28,74 +31,130 @@
                 <% end %>
                 
                 
-                <div class="row well">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <h3>Prezzo: </h3>
-                                <% price = item["saleTotal"][3..-1].to_f %>
-                                <% price2 = (price + (@value * price )).round(2) %>
-                                <%= price2.to_s + "€" %>
-                            </div>
-                            <div class="col-sm-2">
-                                </br></br>
-                                <h3>Andata: </h3>
-                            </div>
-                            <div class="col-sm-2">
-                                <h3>Partenza: </h3>
-                                <%= item["slice"].first["segment"][0]["leg"][0]["departureTime"] %>
-                                <% airport_code = item["slice"].first["segment"][0]["leg"][0]["origin"] %>
-                                <%= @airports[airport_code]  %>
-                            </div>
-                            <div class="col-sm-2">
-                                <h3>Arrivo: </h3>
-                                <%= item["slice"].first["segment"][0]["leg"][0]["arrivalTime"] %>
-                                <% airport_code = aeroporto_destinazione_andata %>
-                                <%= @airports[airport_code]  %>
-                            </div>
-                            <div class="col-sm-4">
-                                <h3>Compagnia:</h3>
+                
+                
+                <div class="row well items">
+                    <div class="col-md-8">
+                      <section class="row">
+                        <div class="col-md-4">
+                            <h3>
                                 <% code = item["slice"].first["segment"][0]["flight"]["carrier"] %>
                                 <%= link_to(@carriers[code], @websites[code], target: "_blank") %>
-                            </div>
+                            </h3>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <% if scalo_andata %>
-                                    <h3>Scalo Andata:</h3>
-                                    <%= @airports[aeroporto_scalo_andata] %>
-                                <% end %>
-                                <% if scalo_ritorno %>
-                                    <h3> Scalo Ritorno:</h3>
-                                    <%= @airports[aeroporto_scalo_ritorno] %>
-                                <% end %>
-                            </div>
-                            <div class="col-sm-2">
-                                </br>
-                                <h3>Ritorno: </h3>
-                            </div>
-                            <div class="col-sm-2">
-                                </br></br>
-                                <%= item["slice"].last["segment"][0]["leg"][0]["departureTime"] %>
+                        <div class="col-md-3">
+                          <div class="partenza">
+                            <span class="time">
+                                <h3>
+                                    <% departureTime = (item["slice"].first["segment"][0]["leg"][0]["departureTime"]).split("T").last %>
+                                    <%= departureTime %>
+                                </h3>
+                            </span>
+                            <span class="airport">
+                              <h3>
+                                <% airport_code = item["slice"].first["segment"][0]["leg"][0]["origin"] %>
+                                <%= @airports[airport_code]  %>
+                              </h3>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-md-2 stops" style="padding-top:0.5em;">
+                          <span class="duration"><%= item["slice"].first["duration"] %> min</span>
+                          <ul class="stop-line">
+                            <li class="stop-line"></li>
+                          </ul>
+                          <% if scalo_andata %>
+                              <span class="scali">1 scalo </span>
+                              <div class="luogo_scalo"><%= @airports[aeroporto_scalo_andata] %></div>
+                          <% else %>
+                              <div class="no_scali">Diretto</div>
+                          <% end  %>    
+                        </div>
+                        <div class="col-md-3">
+                          <div class="arrivo">
+                            <span class="time">
+                                <h3>
+                                    <% arrivalTime = (item["slice"].first["segment"][0]["leg"][0]["arrivalTime"]).split("T").last %>
+                                    <%= arrivalTime %>
+                                </h3>
+                            </span>
+                            <span class="airport">
+                              <h3>
+                                <% airport_code = aeroporto_destinazione_andata %>
+                                <%= @airports[airport_code]  %>
+                              </h3>
+                            </span>
+                          </div>
+                        </div>
+                      </section>
+                      <hr/>
+                      <section class="row">
+                        <div class="col-md-4">
+                          <h3>
+                            <% code = item["slice"].last["segment"][0]["flight"]["carrier"] %>
+                            <%= link_to(@carriers[code], @websites[code], target: "_blank") %>
+                          </h3>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="partenza">
+                            <span class="time">
+                              <h3>
+                                <% departureTime = (item["slice"].last["segment"][0]["leg"][0]["departureTime"]).split("T").last %>
+                                <%= departureTime %>
+                              </h3>
+                            </span>
+                            <span class="airport">
+                              <h3>
                                 <% airport_code = item["slice"].last["segment"][0]["leg"][0]["origin"] %>
                                 <%= @airports[airport_code]  %>
-                            </div>  
-                            <div class="col-sm-2">
-                                </br></br>
-                                <%= item["slice"].last["segment"][0]["leg"][0]["arrivalTime"] %>
+                              </h3>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-md-2 stops" style="padding-top:0.5em;">
+                          <span class="duration"><%= item["slice"].first["duration"] %> min</span>
+                          <ul class="stop-line">
+                            <li class="stop-line"></li>
+                          </ul>
+                          <% if scalo_ritorno %>
+                              <span class="scali">1 scalo </span>
+                              <div class="luogo_scalo"><%= @airports[aeroporto_scalo_ritorno] %></div>
+                          <% else %>
+                              <div class="no_scali">Diretto</div>
+                          <% end  %>    
+                        </div>
+                        <div class="col-md-3">
+                          <div class="arrivo">
+                            <span class="time">
+                              <h3>
+                                <% arrivalTime = (item["slice"].last["segment"][0]["leg"][0]["arrivalTime"]).split("T").last %>
+                                <%= arrivalTime %>
+                              </h3>
+                            </span>
+                            <span class="airport">
+                              <h3>
                                 <% airport_code = aeroporto_destinazione_ritorno %>
                                 <%= @airports[airport_code]  %>
-                            </div> 
-                            <div class="col-sm-4">
-                                <h3>Compagnia:</h3>
-                                <% code = item["slice"].last["segment"][0]["flight"]["carrier"] %>
-                                <%= link_to(@carriers[code], @websites[code], target: "_blank") %>
-                            </div>
+                              </h3>
+                            </span>
+                          </div>
                         </div>
+                      </section>
                     </div>
-                    
-                    
-                </div>
+                    <div class="col-md-4">
+                      <div class="price">
+                        <h1>
+                            <% price = item["saleTotal"][3..-1].to_f %>
+                            <% price2 = (price + (@value * price )).round(2) %>
+                            <%= price2.to_s + "€" %>
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+             
+
             <% end %>
         
 
