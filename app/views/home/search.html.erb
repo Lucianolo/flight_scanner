@@ -1,8 +1,8 @@
 <div class="container">
-    <% if !@empty %>
-        <h1>Risultati ricerca</h1>
-        <div class="container main">
-            
+    <% if (!@empty && (!@data.nil?)) %>
+            <h1>Risultati ricerca</h1>
+            <div class="container main">
+                
             
             
             
@@ -59,7 +59,10 @@
                           </div>
                         </div>
                         <div class="col-md-2 stops" style="padding-top:0.5em;">
-                          <span class="duration"><%= item["slice"].first["duration"] %> min</span>
+                          <span class="duration">
+                              <% duration = Time.at((item["slice"].first["duration"])*60).utc.strftime('%H h %M m') %>
+                              <%= duration %> 
+                          </span>
                           <ul class="stop-line">
                             <li class="stop-line"></li>
                           </ul>
@@ -112,7 +115,10 @@
                           </div>
                         </div>
                         <div class="col-md-2 stops" style="padding-top:0.5em;">
-                          <span class="duration"><%= item["slice"].first["duration"] %> min</span>
+                          <span class="duration">
+                              <% duration = Time.at((item["slice"].last["duration"])*60).utc.strftime('%H h %M m') %>
+                              <%= duration %> 
+                          </span>
                           <ul class="stop-line">
                             <li class="stop-line"></li>
                           </ul>
@@ -145,7 +151,7 @@
                       <div class="price">
                         <h1>
                             <% price = item["saleTotal"][3..-1].to_f %>
-                            <% price2 = (price + (@value * price )).round(2) %>
+                            <% price2 = ((price + (@value * price )).round(2) + @incremento.to_i) %>
                             <%= price2.to_s + "€" %>
                         </h1>
                       </div>

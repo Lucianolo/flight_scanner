@@ -1,41 +1,53 @@
 
           
-          
-
-
-
-<h1>Ricerca Voli</h1>
-</br>
 <%= content_tag :div, class: "temp_information", data: {temp: @codes} do %>
-<% end %>
-<%= form_tag(search_path(:params), :method => "get", :class => "form") do %>
-  <div class="form-group">
-  <%= label_tag(:origin, "Partenza da:") %>
-  <%= text_field_tag(:origin,"", :class => "form-control  input") %>
-  </div>
-  <div class="form-group">
-  <%= label_tag(:destination, "Arrivo a:") %>
-  <%= text_field_tag(:destination,"", :class => "form-control input") %>
-  </div>
-  <div class="form-group">
-  <%= label_tag(:outbound, "Andata:") %>
-  <%= date_field_tag(:outbound,"", :class => "form-control") %>
-  </div>
-  <div class="form-group">
-  <%= label_tag(:inbound, "Ritorno:") %>
-  <%= date_field_tag(:inbound,"", :class => "form-control") %>
-  </div>
-  <div class="form-group">
-  <%= label_tag(:adults, "Passeggeri Adulti:") %>
-  <%= number_field_tag(:adults,"", :class => "form-control") %>
-  </div>
-  <div class="form-group">
-  <%= label_tag(:value, "Percentuale di incremento:") %>
-  <%= number_field_tag(:value, 0 , :class => "form-control") %>
-  </div>
-  <%= submit_tag("Search", :class => 'btn btn-primary') %>
-<% end %>
+<% end %>          
 
+
+
+
+
+<div class="container">
+  <h1>Ricerca Voli</h1>
+  
+  </br>
+  <div class="row">
+    <div class="col-lg-10">
+      <%= form_tag(search_path(:params), :method => "get", :class => "form") do %>
+        <div class="form-group">
+        <%= label_tag(:origin, "Partenza da:") %>
+        <%= text_field_tag(:origin,"", :class => "form-control  input") %>
+        </div>
+        <div class="form-group">
+        <%= label_tag(:destination, "Arrivo a:") %>
+        <%= text_field_tag(:destination,"", :class => "form-control input") %>
+        </div>
+        <div class="form-group">
+        <%= label_tag(:outbound, "Andata:") %>
+        <%= date_field_tag(:outbound,"", :class => "form-control") %>
+        </div>
+        <div class="form-group">
+        <%= label_tag(:inbound, "Ritorno:") %>
+        <%= date_field_tag(:inbound,"", :class => "form-control") %>
+        </div>
+        <div class="form-group">
+        <%= label_tag(:adults, "Passeggeri Adulti:") %>
+        <%= number_field_tag(:adults,"", :class => "form-control") %>
+        </div>
+        <div class="form-group">
+        <%= label_tag(:value, "Percentuale di incremento:") %>
+        <%= number_field_tag(:value, 0 , :class => "form-control") %>
+        </div>
+        <div class="form-group">
+        <%= label_tag(:incremento, "Incremento arbitrario:") %>
+        <%= number_field_tag(:incremento, 0 , :class => "form-control") %>
+        </div>
+        <%= submit_tag("Search", :class => 'btn btn-primary') %>
+      <% end %>
+    </div>
+
+  </div>
+</div>
 <script>
   $(document).ready(function() {
     var availableTags = $('.temp_information').data('temp')

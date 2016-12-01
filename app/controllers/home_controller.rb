@@ -27,6 +27,7 @@ class HomeController < ApplicationController
     inboundPartialDate = params[:inbound]
     adults = params[:adults]
     val = params[:value]
+    @incremento = params[:incremento]
     if val!= ""
       @value = (val.to_i)/100.0
     else
@@ -90,6 +91,7 @@ class HomeController < ApplicationController
           @airports[airport["code"]] = airport["name"]
         end
         @data = data_temp["tripOption"]
+        
         
         @websites = carrier_websites
         
