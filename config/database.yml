@@ -1,16 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: <%= ENV['USERNAME'] %>
+  password: <%= ENV['PASSWORD'] %>
+  host:     <%= ENV['IP'] %>
+
 development:
-  adapter: postgresql
-  database: my_database_development
-  pool: 5
-  timeout: 5000
+  <<: *default
+  database: sample_app_development
+
 test:
-  adapter: postgresql
-  database: my_database_test
-  pool: 5
-  timeout: 5000
+  <<: *default
+  database: sample_app_test
 
 production:
-  adapter: postgresql
-  database: my_database_production
-  pool: 5
-  timeout: 5000
+  <<: *default
+  database: sample_app_production

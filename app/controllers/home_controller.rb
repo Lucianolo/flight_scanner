@@ -7,6 +7,7 @@ require 'uri'
 
 class HomeController < ApplicationController
   def index
+    puts session[:id]
     if session[:id] == 10
       @codes = to_code.keys
     else
@@ -80,19 +81,21 @@ class HomeController < ApplicationController
     
     
     
-    puts data_temp["data"]
-    puts data_temp["data"].empty?
-    
-    if(data_temp["data"].keys.count > 1)
-      data_temp["data"]["carrier"].each do |carrier|
-        @carriers[carrier["code"]] = carrier["name"]
+    if data_temp != nil
+      if(data_temp["data"].keys.count > 1)
+        data_temp["data"]["carrier"].each do |carrier|
+          @carriers[carrier["code"]] = carrier["name"]
+        end
+        data_temp["data"]["airport"].each do |airport|
+          @airports[airport["code"]] = airport["name"]
+        end
+        @data = data_temp["tripOption"]
+        
+        @websites = carrier_websites
+        
+        
+        
       end
-      data_temp["data"]["airport"].each do |airport|
-        @airports[airport["code"]] = airport["name"]
-      end
-      @data = data_temp["tripOption"]
-      
-      @websites = carrier_websites
     else
       @empty = true
     end

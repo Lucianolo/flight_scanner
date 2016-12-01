@@ -5,13 +5,19 @@
 
         
             <% @data.each do |item| %>
+            
+                <!--% if item["slice"][0]["segment"].count > 1 %>
+                %     scalo_andata = true %>
+                %      -->
+                
                 <div class="row well">
                     <div class="container">
                         <div class="row">
                             <div class="col-sm-2">
                                 <h3>Prezzo: </h3>
                                 <% price = item["saleTotal"][3..-1].to_f %>
-                                <%= price.to_s + "€" %>
+                                <% price2 = (price + (@value * price )).round(2) %>
+                                <%= price2.to_s + "€" %>
                             </div>
                             <div class="col-sm-2">
                                 </br></br>
@@ -37,9 +43,6 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-2">
-                                <h3>Prezzo + Percentuale</h3>
-                                <% price2 = (price + (@value * price )).round(2) %>
-                                <%= (price2).to_s + "€" %>
                             </div>
                             <div class="col-sm-2">
                                 </br>
