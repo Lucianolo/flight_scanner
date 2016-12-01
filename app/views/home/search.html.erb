@@ -6,9 +6,27 @@
         
             <% @data.each do |item| %>
             
-                <!--% if item["slice"][0]["segment"].count > 1 %>
-                %     scalo_andata = true %>
-                %      -->
+<!--             GESTIONE SCALI             -->
+                
+
+                <% if item["slice"][0]["segment"].count > 1 %>
+                <%     scalo_andata = true %>
+                <%     aeroporto_scalo_andata = item["slice"][0]["segment"][0]["leg"][0]["destination"] %>
+                <%     aeroporto_destinazione_andata = item["slice"][0]["segment"][1]["leg"][0]["destination"] %>
+                <% else %>
+                <%     scalo_andata = false %>
+                <%     aeroporto_destinazione_andata = item["slice"][0]["segment"][0]["leg"][0]["destination"] %>
+                <% end %>
+                
+                <% if item["slice"][1]["segment"].count > 1 %>
+                <%     scalo_ritorno = true %>
+                <%     aeroporto_scalo_ritorno = item["slice"][1]["segment"][0]["leg"][0]["destination"] %>
+                <%     aeroporto_destinazione_ritorno = item["slice"][1]["segment"][1]["leg"][0]["destination"] %>
+                <% else %>
+                <%     scalo_ritorno = false %>
+                <%     aeroporto_destinazione_ritorno = item["slice"][1]["segment"][0]["leg"][0]["destination"] %>
+                <% end %>
+                
                 
                 <div class="row well">
                     <div class="container">
@@ -32,7 +50,7 @@
                             <div class="col-sm-2">
                                 <h3>Arrivo: </h3>
                                 <%= item["slice"].first["segment"][0]["leg"][0]["arrivalTime"] %>
-                                <% airport_code = item["slice"].first["segment"][0]["leg"][0]["destination"] %>
+                                <% airport_code = aeroporto_destinazione_andata %>
                                 <%= @airports[airport_code]  %>
                             </div>
                             <div class="col-sm-4">
@@ -43,6 +61,14 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-2">
+                                <% if scalo_andata %>
+                                    <h3>Scalo Andata:</h3>
+                                    <%= @airports[aeroporto_scalo_andata] %>
+                                <% end %>
+                                <% if scalo_ritorno %>
+                                    <h3> Scalo Ritorno:</h3>
+                                    <%= @airports[aeroporto_scalo_ritorno] %>
+                                <% end %>
                             </div>
                             <div class="col-sm-2">
                                 </br>
@@ -57,7 +83,7 @@
                             <div class="col-sm-2">
                                 </br></br>
                                 <%= item["slice"].last["segment"][0]["leg"][0]["arrivalTime"] %>
-                                <% airport_code = item["slice"].last["segment"][0]["leg"][0]["origin"] %>
+                                <% airport_code = aeroporto_destinazione_ritorno %>
                                 <%= @airports[airport_code]  %>
                             </div> 
                             <div class="col-sm-4">
