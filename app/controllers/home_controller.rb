@@ -17,7 +17,6 @@ class HomeController < ApplicationController
   
   def search
     
-    
     apiKey = "AIzaSyADlb82ZnSIwyE-UtfZSla_Itd8QHj_0Ms"
     originPlace = to_code[params[:origin]]
     destinationPlace = to_code[params[:destination]]
@@ -26,7 +25,9 @@ class HomeController < ApplicationController
     outboundPartialDate = params[:outbound]
     inboundPartialDate = params[:inbound]
     adults = params[:adults]
+    children = params[:children]
     val = params[:value]
+    
     @incremento = params[:incremento]
     if val!= ""
       @value = (val.to_i)/100.0
@@ -34,30 +35,51 @@ class HomeController < ApplicationController
       @value = 0
     end
     
-    @payload = 
-
-    {
-     "request": {
-      "passengers": {
-       "adultCount": adults
-      },
-      "slice": [
-       {
-        "origin": originPlace,
-        "destination": destinationPlace,
-        "date": outboundPartialDate
-       },
-       {
-        "origin": destinationPlace,
-        "destination": originPlace,
-        "date": inboundPartialDate
+    if inboundPartialDate == "" 
+      @payload = 
+      {
+       "request": {
+        "passengers": {
+         "adultCount": adults,
+         "childCount": children
+        },
+        "slice": [
+         {
+          "origin": originPlace,
+          "destination": destinationPlace,
+          "date": outboundPartialDate
+         }
+        ],
+        "solutions": 10
        }
-      ],
-      "solutions": 10
-     }
-    }
-    
-    puts @payload
+      }
+      
+    else
+      
+      @payload = 
+  
+      {
+       "request": {
+        "passengers": {
+         "adultCount": adults,
+         "childCount": children
+        },
+        "slice": [
+         {
+          "origin": originPlace,
+          "destination": destinationPlace,
+          "date": outboundPartialDate
+         },
+         {
+          "origin": destinationPlace,
+          "destination": originPlace,
+          "date": inboundPartialDate
+         }
+        ],
+        "solutions": 10
+       }
+      }
+    end
     
     uri = URI.parse("https://www.googleapis.com/qpxExpress/v1/trips/search?fields=kind%2Ctrips&key="+apiKey+"")
     
