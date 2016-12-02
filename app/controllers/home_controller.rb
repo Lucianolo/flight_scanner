@@ -36,6 +36,7 @@ class HomeController < ApplicationController
     end
     
     if inboundPartialDate == "" 
+      @ritorno = false
       @payload = 
       {
        "request": {
@@ -55,7 +56,7 @@ class HomeController < ApplicationController
       }
       
     else
-      
+      @ritorno = true
       @payload = 
   
       {
