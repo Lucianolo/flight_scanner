@@ -18,7 +18,7 @@ class HomeController < ApplicationController
   def search
     
     
-    apiKey = "AIzaSyADlb82ZnSIwyE-UtfZSla_Itd8QHj_0Ms"
+    apiKey = "Your Api Key"
     originPlace = to_code[params[:origin]]
     destinationPlace = to_code[params[:destination]]
     
@@ -107,7 +107,10 @@ class HomeController < ApplicationController
 private 
 
   def to_code
-    page = Nokogiri::HTML(open("http://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm"))  
+    #page = Nokogiri::HTML(open("http://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm"))  
+    file = File.read('codes.html')
+    page = Nokogiri::HTML(file)
+    #File.write('codes.html', page)
     index = 0
     
     codes = {}
@@ -132,7 +135,10 @@ private
   end
   
   def carrier_websites
-    page = Nokogiri::HTML(open("https://www.onetravel.com/travel/travelcodes.asp"))  
+    #page = Nokogiri::HTML(open("https://www.onetravel.com/travel/travelcodes.asp"))  
+    #File.write('websites.html', page)
+    file = File.read('websites.html')
+    page = Nokogiri::HTML(file)
     websites = {}
     page.search('.airlineCode').each do |line|
       line.search('ul li').each do |item|
