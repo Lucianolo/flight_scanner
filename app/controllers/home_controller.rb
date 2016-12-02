@@ -56,7 +56,8 @@ class HomeController < ApplicationController
       "solutions": 10
      }
     }
-
+    
+    puts @payload
     
     uri = URI.parse("https://www.googleapis.com/qpxExpress/v1/trips/search?fields=kind%2Ctrips&key="+apiKey+"")
     
@@ -81,6 +82,7 @@ class HomeController < ApplicationController
     @airports = {}
     
     
+    puts parsed
     
     if data_temp != nil
       if(data_temp["data"].keys.count > 1)
@@ -123,14 +125,15 @@ private
           index += 1
           next
         else
-          name = item.search('td.border1').first.text
-          code = item.search('td.border1').last.text
+          name = (item.search('td.border1').first.text).gsub(/\n/, "")
+          code = (item.search('td.border1').last.text).gsub(/\n/, "")
           
           codes[name] = code
           index += 1
         end
       end
     end
+    puts codes
     return codes
   end
   
