@@ -15,7 +15,28 @@
 </head>
 <body>
 <div class="container">
-<%= yield %>
+  <div class="container head">
+    <section class="row" style="text-align:center;">
+        <%= image_tag('img.png') %>
+      
+    </section>
+  </div>
+  <div class="container">
+    <hr/>
+  </div>
+  
+  <%= yield %>
+
+
+  <footer class="footer">
+    <div class="container">
+      <hr/>
+      <p class="text-muted">
+        © Spaziani Viaggi 2016
+      </p>
+    </div>
+  </footer>
+  
 </div>
 </body>
 </html>

@@ -14,7 +14,7 @@ body{
 }
 .form-control{
     padding-left: 1em;
-    width: 40%;
+    width: 45%;
 }
 
 .input {
@@ -107,4 +107,32 @@ div#radio {
 
 #ritorno {
     display:none;
+}
+
+.title h1 {
+    font-size:45px;
+    height: 250px;
+    line-height: 250px;
+    text-shadow: 2px 2px #4db5f4;
+}
+.title {
+    height: 100%;
+    line-height: 100%;
+}
+.head .row {
+    height: 250px;
+    
+}
+.ricerca{
+    font-size: 26px;
+}
+
+.items {
+    margin-right:0;
+    padding-right:0;
+}
+
+.price-col {
+    margin-right:0;
+    padding-right:0;
 }

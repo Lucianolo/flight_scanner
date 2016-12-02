@@ -14,3 +14,8 @@
  *= require_tree .
  *= require_self
  */
+
+.text-muted{
+    text-align: right;
+    padding-top: 2em;
+}
