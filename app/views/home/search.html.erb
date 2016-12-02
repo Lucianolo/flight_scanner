@@ -39,7 +39,9 @@
                         <div class="col-md-4">
                             <h3>
                                 <% code = item["slice"].first["segment"][0]["flight"]["carrier"] %>
-                                <%= link_to(@carriers[code], @websites[code], target: "_blank") %>
+                                <% puts @websites[code] %>
+                                <a href="<%= @websites[code] %>" target="_blank"><%= @carriers[code] %> </a>
+                                <!--%= link_to(@websites[code], @carriers[code], target: "_blank") %-->
                             </h3>
                         </div>
                         <div class="col-md-3">
@@ -95,7 +97,9 @@
                         <div class="col-md-4">
                           <h3>
                             <% code = item["slice"].last["segment"][0]["flight"]["carrier"] %>
-                            <%= link_to(@carriers[code], @websites[code], target: "_blank") %>
+                            <% puts @websites[code] %>
+                            <a href='<%= @websites[code] %>' target="_blank"><%= @carriers[code] %> </a>
+                            <!--%= link_to(@websites[code], @carriers[code], target: "_blank") %-->
                           </h3>
                         </div>
                         <div class="col-md-3">

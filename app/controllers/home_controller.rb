@@ -82,7 +82,7 @@ class HomeController < ApplicationController
     @airports = {}
     
     
-    puts parsed
+    #puts parsed
     
     if data_temp != nil
       if(data_temp["data"].keys.count > 1)
@@ -133,7 +133,6 @@ private
         end
       end
     end
-    puts codes
     return codes
   end
   
