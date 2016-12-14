@@ -49,8 +49,16 @@
                           <div class="partenza">
                             <span class="time">
                                 <h3>
-                                    <% departureTime = (item["slice"].first["segment"][0]["leg"][0]["departureTime"]).split("T").last %>
-                                    <%= departureTime %>
+                                    <% time_array = (item["slice"].first["segment"][0]["leg"][0]["departureTime"]).split("T").last.split('+') %>
+                                    <% time = time_array.first %>
+                                    <% locale = time_array.last %>
+                                    <% departureTime = ((time.split(':').first.to_i + locale.split(':').first.to_i) % 24).to_s+":"+time.split(':').last %>
+                                    <% tmp = departureTime.split(':').first %>
+                                    <% if (tmp.length < 2) %>
+                                      <% departureTime = "0"+departureTime %>
+                                    <% end %>
+                                    <% date = (item["slice"].first["segment"][0]["leg"][0]["arrivalTime"]).split("T").first.gsub("-","/") %>
+                                    <%= departureTime+" - "+date %>
                                 </h3>
                             </span>
                             <span class="airport">
@@ -80,8 +88,16 @@
                           <div class="arrivo">
                             <span class="time">
                                 <h3>
-                                    <% arrivalTime = (item["slice"].first["segment"][0]["leg"][0]["arrivalTime"]).split("T").last %>
-                                    <%= arrivalTime %>
+                                    <% time_array = (item["slice"].first["segment"][0]["leg"][0]["arrivalTime"]).split("T").last.split('+') %>
+                                    <% time = time_array.first %>
+                                    <% locale = time_array.last %>
+                                    <% arrivalTime = ((time.split(':').first.to_i + locale.split(':').first.to_i) % 24).to_s+":"+time.split(':').last %>
+                                    <% tmp = arrivalTime.split(':').first %>
+                                    <% if (tmp.length < 2) %>
+                                      <% arrivalTime = "0"+arrivalTime %>
+                                    <% end %>
+                                    <% date = (item["slice"].first["segment"][0]["leg"][0]["arrivalTime"]).split("T").first.gsub("-","/") %>
+                                    <%= arrivalTime+" - "+date %>
                                 </h3>
                             </span>
                             <span class="airport">
@@ -109,8 +125,16 @@
                               <div class="partenza">
                                 <span class="time">
                                   <h3>
-                                    <% departureTime = (item["slice"].last["segment"][0]["leg"][0]["departureTime"]).split("T").last %>
-                                    <%= departureTime %>
+                                    <% time_array = (item["slice"].last["segment"][0]["leg"][0]["departureTime"]).split("T").last.split('+') %>
+                                    <% time = time_array.first %>
+                                    <% locale = time_array.last %>
+                                    <% departureTime = ((time.split(':').first.to_i + locale.split(':').first.to_i) % 24).to_s+":"+time.split(':').last %>
+                                    <% tmp = departureTime.split(':').first %>
+                                    <% if (tmp.length < 2) %>
+                                      <% departureTime = "0"+departureTime %>
+                                    <% end %>
+                                    <% date = (item["slice"].last["segment"][0]["leg"][0]["departureTime"]).split("T").first.gsub("-","/") %>
+                                    <%= departureTime+" - "+date %>
                                   </h3>
                                 </span>
                                 <span class="airport">
@@ -140,8 +164,16 @@
                               <div class="arrivo">
                                 <span class="time">
                                   <h3>
-                                    <% arrivalTime = (item["slice"].last["segment"][0]["leg"][0]["arrivalTime"]).split("T").last %>
-                                    <%= arrivalTime %>
+                                    <% time_array = (item["slice"].last["segment"][0]["leg"][0]["arrivalTime"]).split("T").last.split('+') %>
+                                    <% time = time_array.first %>
+                                    <% locale = time_array.last %>
+                                    <% arrivalTime = ((time.split(':').first.to_i + locale.split(':').first.to_i) % 24).to_s+":"+time.split(':').last %>
+                                    <% tmp = arrivalTime.split(':').first %>
+                                    <% if (tmp.length < 2) %>
+                                      <% arrivalTime = "0"+arrivalTime %>
+                                    <% end %>
+                                    <% date = (item["slice"].last["segment"][0]["leg"][0]["arrivalTime"]).split("T").first.gsub("-","/") %>
+                                    <%= arrivalTime+" - "+date %>
                                   </h3>
                                 </span>
                                 <span class="airport">

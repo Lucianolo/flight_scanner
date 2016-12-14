@@ -64,10 +64,19 @@
   $(document).ready(function() {
     var availableTags = $('.temp_information').data('temp')
     $( "#origin" ).autocomplete({
-      source: availableTags
+      source: function(request, response) {
+        var results = $.ui.autocomplete.filter(availableTags, request.term);
+
+        response(results.slice(0, 20));
+      },
+      delay: 0
     });
     $( "#destination" ).autocomplete({
-      source: availableTags,
+      source: function(request, response) {
+        var results = $.ui.autocomplete.filter(availableTags, request.term);
+
+        response(results.slice(0, 20));
+      },
       delay: 0
     });
   } );
