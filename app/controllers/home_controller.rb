@@ -29,6 +29,12 @@ class HomeController < ApplicationController
     children = params[:children]
     val = params[:value]
     
+    if params[:diretto]
+      stops = 0
+    else
+      stops = 1
+    end
+    
     @incremento = params[:incremento]
     if val!= ""
       @value = (val.to_i)/100.0
@@ -49,7 +55,8 @@ class HomeController < ApplicationController
          {
           "origin": originPlace,
           "destination": destinationPlace,
-          "date": outboundPartialDate
+          "date": outboundPartialDate,
+          "maxStops": stops
          }
         ],
         "solutions": 10
@@ -70,12 +77,14 @@ class HomeController < ApplicationController
          {
           "origin": originPlace,
           "destination": destinationPlace,
-          "date": outboundPartialDate
+          "date": outboundPartialDate,
+          "maxStops": stops
          },
          {
           "origin": destinationPlace,
           "destination": originPlace,
-          "date": inboundPartialDate
+          "date": inboundPartialDate,
+          "maxStops": stops
          }
         ],
         "solutions": 10
